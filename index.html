@@ -1,49 +1,27 @@
 <!DOCTYPE html>
-
-<html>
-
-<body >
-
-
-
-
-
-
-
-
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open and Close Link</title>
+</head>
+<body>
 
 <script>
+  // Function to open a link and close the window after 10 seconds
+  function openAndCloseLink() {
+    // Open a link
+    var newWindow = window.open(" https://abhishekkumar25122512.github.io/bing-rewards25122005abhi/");
 
+    // Close the new window after 10 seconds
+    setTimeout(function() {
+      newWindow.close();
+    }, 10000);
+  }
 
-
-
-
-const myTimeouti = setTimeout(two, 1);
-
-
-
-const myTimeouth = setTimeout(closeWint, 50000);
-
-  
-
- 
-
-
-function two()  { myWindow = window.open("   https://abhishekkumar25122512.github.io/Abhisheknewscript/");
-
-}
-
-  
-"
-function closeWin() { myWindow.close(); }
-
-  
-
- 
+  // Call the function on page load
+  window.onload = openAndCloseLink;
 </script>
 
-
-
 </body>
-
 </html>
