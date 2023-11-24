@@ -1,43 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Link Opener</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Interval Search</title>
+    <style>
+        /* Your existing CSS styles remain unchanged */
+    </style>
 </head>
 <body>
 
-<iframe id="myFrame" width="800" height="600"></iframe>
+<h1>Welcome to Custom Interval Search</h1>
+
+<div>
+    <label for="intervalInput">Enter Interval (in seconds): </label>
+    <input type="number" id="intervalInput" placeholder="e.g., 1" />
+    <button onclick="startSearch()">Start Search</button>
+</div>
+
+<iframe id="searchFrame" width="800" height="600" frameborder="0"></iframe>
 
 <script>
-  // Array of links to open
-  const links = [
-    "https://en.m.wikipedia.org/wiki/Milk",
-    'https://en.m.wikipedia.org/wiki/Water',
-    'https://en.m.wikipedia.org/wiki/Sandwich',
-    'https://en.m.wikipedia.org/wiki/Kite',
+    let intervalId;
 
-    ' https://en.m.wikipedia.org/wiki/Bol_%28film%29'
-  ];
+    function searchRandom() {
+        // Array of random search terms
+        const searchTerms = ["cats", "dogs", "nature", "technology", "coding"];
 
-  // Function to open links sequentially
-  function openLinksSequentially(index) {
-    if (index < links.length) {
-      // Get the iframe element
-      const frame = document.getElementById('myFrame');
+        // Get a random search term
+        const randomIndex = Math.floor(Math.random() * searchTerms.length);
+        const searchTerm = searchTerms[randomIndex];
 
-      // Set the iframe source to the current link
-      frame.src = links[index];
+        // Construct Wikipedia link
+        const searchUrl = `https://en.m.wikipedia.org/wiki/${encodeURIComponent(searchTerm)}`;
 
-      // Increment index for the next link after a delay (e.g., 3 seconds)
-      setTimeout(() => {
-        openLinksSequentially(index + 1);
-      }, 3000); // 3000 milliseconds = 3 seconds
+        // Get the iframe element
+        const iframe = document.getElementById('searchFrame');
+
+        // Set the iframe source to the Wikipedia link
+        iframe.src = searchUrl;
     }
-  }
 
-  // Start opening links from the first one
-  openLinksSequentially(0);
+    function startSearch() {
+        // Stop the existing interval if any
+        clearInterval(intervalId);
+
+        // Get the interval value from the input or set default to 1 second
+        const intervalValue = (document.getElementById('intervalInput').value || 1) * 1000;
+
+        // Start a new interval with the specified value
+        intervalId = setInterval(searchRandom, intervalValue);
+    }
+
+    // Start the random search on page load
+    startSearch();
 </script>
 
 </body>
