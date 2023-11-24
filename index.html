@@ -19,44 +19,14 @@
             border: 1px solid #ccc;
             margin: 20px auto;
         }
-
-        input {
-            padding: 10px;
-            font-size: 16px;
-            margin-right: 10px;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
 
 <h1>Link in Frame</h1>
 
-<div>
-    <label for="linkInput">Enter Link: </label>
-    <input type="text" id="linkInput" placeholder="https://www.bing.com/search?q=udif" />
-    <button onclick="loadLink()">Load Link</button>
-</div>
-
 <!-- Frame for displaying content -->
-<iframe id="myFrame" src="" frameborder="0"></iframe>
-
-<script>
-    function loadLink() {
-        const linkInput = document.getElementById('linkInput');
-        const frame = document.getElementById('myFrame');
-
-        // Check if the input is not empty
-        if (linkInput.value.trim() !== "") {
-            frame.src = linkInput.value;
-        }
-    }
-</script>
+<iframe id="myFrame" src="https://www.bing.com/search?q=udif" frameborder="0"></iframe>
 
 </body>
 </html>
