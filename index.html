@@ -2,107 +2,163 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Interval Search</title>
+    <title>Random Number Generator</title>
     <style>
-        /* Your existing CSS styles remain unchanged */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #3494e6, #ec6ead);
+            text-align: center;
+            margin: 20px;
+            color: #ffffff;
+        }
+
+        button {
+            background: linear-gradient(to right, #ff8c00, #ffd700);
+            font-size: 20px;
+            padding: 10px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #ec6ead, #3494e6);
+        }
+
+        #startButton, #stopButton {
+            background: linear-gradient(to right, #32cd32, #008000);
+        }
+
+        #stopButton:hover {
+            background: linear-gradient(to right, #ff6347, #ff4500);
+        }
+
+        #desktopModeButton, #mobileModeButton {
+            background: linear-gradient(to right, #ff6347, #ff4500);
+            color: white;
+        }
+
+        #mobileModeButton:hover {
+            background: linear-gradient(to right, #ff4500, #ff6347);
+        }
+
+        #intervalInput {
+            font-size: 16px;
+            padding: 5px;
+            margin: 10px;
+        }
+
+        p {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        .frame-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .frame {
+            width: 48%;
+            height: 300px;
+            border: none;
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
 
-<h1>Welcome to Custom Interval Search</h1>
+    <button onclick="openLink('https://rewards.bing.com')">REWARDS</button>
+    <button onclick="openLink('https://rewards.bing.com/status')">STATUS</button>
+    <button onclick="openLink('https://abhishekkumar25122512.github.io/bing-rewards25122005abhi/')">NOT WORKING</button>
 
-<div>
-    <label for="intervalInput">Enter Interval (in seconds): </label>
-    <input type="number" id="intervalInput" placeholder="e.g., 1" />
-    <button onclick="startSearch()">Start Search</button>
-</div>
+    <input type="number" id="intervalInput" placeholder="1">
+    <button onclick="startLoop()" id="startButton">Start</button>
+    <button onclick="stopLoop()" id="stopButton" style="display: none;">Stop</button>
 
-<iframe id="searchFrame" width="800" height="600" frameborder="0"></iframe>
+    <p id="randomNumber"></p>
 
-<script>
-    let intervalId;
+    <button onclick="toggleView()">Desktop Mode</button>
 
-    function searchRandom() {
-        // Array of random search terms
-        const searchTerms = ["cats", "dogs", "nature", "technology", "coding" , "of", "to", "a", "and", "in", "for", "is", "on", "that",
-    "by", "this", "with", "i", "you", "it", "not", "or", "be", "are",
-    "from", "at", "as", "your", "all", "have", "new", "more", "an", "was",
-    "we", "will", "home", "can", "us", "about", "if", "page", "my", "has",
-    "search", "free", "but", "our", "one", "other", "do", "no",
-    "information", "time", "they", "site", "he", "up", "may", "what",
-    "which", "their", "news", "out", "use", "any", "there", "see", "only",
-    "so", "his", "when", "contact", "here", "business", "who", "web",
-    "also", "now", "help", "get", "pm", "view", "online", "c", "e", "first",
-    "am", "been", "would", "how", "were", "me", "s", "services", "some",
-    "these", "click", "its", "like", "service", "x", "than", "find",
-    "price", "date", "back", "top", "people", "had", "list", "name", "just",
-    "over", "state", "year", "day", "into", "email", "two", "health", "n",
-    "world", "re", "next", "used", "go", "b", "work", "last", "most",
-    "products", "music", "buy", "data", "make", "them", "should", "product",
-    "system", "post", "her", "city", "t", "add", "policy", "number", "such",
-    "please", "available", "copyright", "support", "message", "after",
-    "best", "software", "then", "jan", "good", "video", "well", "d",
-    "where", "info", "rights", "public", "books", "high", "school",
-    "through", "m", "each", "links", "she", "review", "years", "order",
-    "very", "privacy", "book", "items", "company", "r", "read", "group",
-    "sex", "need", "many", "user", "said", "de", "does", "set", "under",
-    "general", "research", "university", "january", "mail", "full", "map",
-    "reviews", "program", "life", "know", "games", "way", "days",
-    "management", "p", "part", "could", "great", "united", "hotel", "real",
-    "f", "item", "international", "center", "ebay", "must", "store",
-    "travel", "comments", "made", "development", "report", "off", "member",
-    "details", "line", "terms", "before", "hotels", "did", "send", "right",
-    "type", "because", "local", "those", "using", "results", "office",
-    "education", "national", "car", "design", "take", "posted", "internet",
-    "address", "community", "within", "states", "area", "want", "phone",
-    "dvd", "shipping", "reserved", "subject", "between", "forum", "family",
-    "l", "long", "based", "w", "code", "show", "o", "even", "black",
-    "check", "special", "prices", "website", "index", "being", "women",
-    "much", "sign", "file", "link", "open", "today", "technology", "south",
-    "case", "project", "same", "pages", "uk", "version", "section", "own",
-    "found", "sports", "house", "related", "security", "both", "g",
-    "county", "american", "photo", "game", "members", "power", "while",
-    "care", "network", "down", "computer", "systems", "three", "total",
-    "place", "end", "following", "download", "h", "him", "without", "per",
-    "access", "think", "north", "resources", "current", "posts", "big",
-    "media", "law", "control", "water", "history", "pictures", "size",
-    "art", "personal", "since", "including", "guide", "shop", "directory",
-    "board", "location", "change", "white", "text", "small", "rating",
-    "rate", "government", "children", "during", "usa", "return", "students",
-    "v", "shopping", "account", "times", "sites", "level", "digital",
-    "profile", "previous", "form", "events", "love", "old", "john", "main",
-    "call", "hours", "image", "department", "title", "description", "non"];
+    <div class="frame-container" id="desktopFrames">
+        <iframe id="bingFrame" class="frame"></iframe>
+        <iframe id="newFrame" class="frame"></iframe>
+    </div>
 
-        // Get a random search term
-        const randomIndex = Math.floor(Math.random() * searchTerms.length);
-        const searchTerm = searchTerms[randomIndex];
+    <iframe id="mobileFrame" class="frame" style="display: none;"></iframe>
 
-        // Construct Wikipedia link
-        const searchUrl = `https://en.m.wikipedia.org/wiki/${encodeURIComponent(searchTerm)}`;
+    <script>
+        var intervalId;
+        var isLooping = false;
 
-        // Get the iframe element
-        const iframe = document.getElementById('searchFrame');
+        function generateRandomNumber() {
+            var randomNumber = Math.floor(Math.random() * 10008000) + 1;
+            document.getElementById('randomNumber').innerText = 'Random Number: ' + randomNumber;
+            document.getElementById('bingFrame').src = 'https://www.bing.com/search?form=MOZLBR&pc=MOZR&q=' + encodeURIComponent(randomNumber);
+            document.getElementById('mobileFrame').src = 'https://www.bing.com/search?form=MOZLBR&pc=MOZR&q=' + encodeURIComponent(randomNumber);
+        }
 
-        // Set the iframe source to the Wikipedia link
-        iframe.src = searchUrl;
-    }
+        function openLink(link) {
+            window.open(link, '_blank');
+        }
 
-    function startSearch() {
-        // Stop the existing interval if any
-        clearInterval(intervalId);
+        function openNewFrame(link) {
+            document.getElementById('newFrame').src = link;
+        }
 
-        // Get the interval value from the input or set default to 1 second
-        const intervalValue = (document.getElementById('intervalInput').value || 1) * 1000;
+        function startLoop() {
+            var startButton = document.getElementById('startButton');
+            var stopButton = document.getElementById('stopButton');
+            var intervalInput = document.getElementById('intervalInput');
 
-        // Start a new interval with the specified value
-        intervalId = setInterval(searchRandom, intervalValue);
-    }
+            startButton.style.display = 'none';
+            stopButton.style.display = 'inline-block';
 
-    // Start the random search on page load
-    startSearch();
-</script>
+            var intervalValue = parseInt(intervalInput.value, 10) || 1;
+            intervalId = setInterval(generateRandomNumber, intervalValue * 1000);
+            intervalInput.disabled = true; // Disable the input box while looping
+            isLooping = true;
+        }
+
+        function stopLoop() {
+            var startButton = document.getElementById('startButton');
+            var stopButton = document.getElementById('stopButton');
+            var intervalInput = document.getElementById('intervalInput');
+
+            startButton.style.display = 'inline-block';
+            stopButton.style.display = 'none';
+
+            clearInterval(intervalId);
+            intervalInput.disabled = false; // Enable the input box
+            isLooping = false;
+        }
+
+        function toggleView() {
+            var desktopFrames = document.getElementById('desktopFrames');
+            var mobileFrame = document.getElementById('mobileFrame');
+            var desktopModeButton = document.getElementById('desktopModeButton');
+            var mobileModeButton = document.getElementById('mobileModeButton');
+
+            if (desktopFrames.style.display === 'none') {
+                desktopFrames.style.display = 'flex';
+                mobileFrame.style.display = 'none';
+                desktopModeButton.innerText = 'Desktop Mode';
+                mobileModeButton.style.display = 'inline-block';
+            } else {
+                desktopFrames.style.display = 'none';
+                mobileFrame.style.display = 'block';
+                desktopModeButton.style.display = 'none';
+                mobileModeButton.innerText = 'Mobile Mode';
+            }
+        }
+
+        // Simulate a click on the hidden "NEW FRAME" button after the page loads
+        openNewFrame('');
+    </script>
 
 </body>
 </html>
